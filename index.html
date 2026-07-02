@@ -31,7 +31,7 @@
  * chập chờn.
  */
 (function () {
-  var PAGE_VERSION = "2026.07.02-01"; // LUÔN đổi số này mỗi khi deploy bản index.html mới
+  var PAGE_VERSION = "2026.07.02-02"; // LUÔN đổi số này mỗi khi deploy bản index.html mới
   try {
     var params = new URLSearchParams(location.search);
     if (params.get('v') !== PAGE_VERSION) {
@@ -301,7 +301,7 @@
         <p>Dùng tài khoản trong trang tính "TaiKhoan" của Google Sheet.</p>
         <div class="config-box">
           <label>Apps Script Web App URL (kết thúc bằng /exec)</label>
-          <input type="text" id="apiUrlInput" placeholder="https://script.google.com/macros/s/XXXXX/exec" value="https://script.google.com/macros/s/AKfycbxXmilBU0Jo83MZ4gQlw_M_RLDkJ8ohKS_WLvNq6SeE-gh74Q9nd-wijS4ACzXKi8_61g/exec">
+          <input type="text" id="apiUrlInput" placeholder="https://script.google.com/macros/s/XXXXX/exec" value="https://script.google.com/macros/s/AKfycbw8-Wo04znEfAhRDGQL6xOW_u7j-VKYAmXZIfZbvvBX7CABwtND30UGDdndv-w0g-KcRA/exec">
         </div>
         <div class="field-stack">
           <input type="text" id="loginUser" placeholder="Tên đăng nhập">
@@ -411,12 +411,12 @@
 </div>
 
 <script>
-let API_URL = "https://script.google.com/macros/s/AKfycbxXmilBU0Jo83MZ4gQlw_M_RLDkJ8ohKS_WLvNq6SeE-gh74Q9nd-wijS4ACzXKi8_61g/exec";
+let API_URL = "https://script.google.com/macros/s/AKfycbw8-Wo04znEfAhRDGQL6xOW_u7j-VKYAmXZIfZbvvBX7CABwtND30UGDdndv-w0g-KcRA/exec";
 // Số phiên bản hiển thị ở footer — tăng số này (vd 2026.07.01-02) mỗi lần
 // đẩy bản index.html mới lên GitHub Pages, để khi học sinh/đồng nghiệp
 // báo lỗi, bạn chỉ cần hỏi họ thấy số phiên bản gì ở chân trang là biết
 // ngay thiết bị đó đang chạy bản cũ (cache) hay bản mới nhất.
-const APP_VERSION = "2026.07.02-01";
+const APP_VERSION = "2026.07.02-02";
 let students = [];
 let session = null; // {username, password}
 
