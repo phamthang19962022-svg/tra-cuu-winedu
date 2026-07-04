@@ -31,7 +31,7 @@
  * chập chờn.
  */
 (function () {
-  var PAGE_VERSION = "2026.07.02-02"; // LUÔN đổi số này mỗi khi deploy bản index.html mới
+  var PAGE_VERSION = "2026.07.04-01"; // LUÔN đổi số này mỗi khi deploy bản index.html mới
   try {
     var params = new URLSearchParams(location.search);
     if (params.get('v') !== PAGE_VERSION) {
@@ -254,6 +254,70 @@
   footer{margin-top:50px;text-align:center;font-size:12px;color:var(--ink-soft);}
   footer .footer-version{margin-top:4px;font-family:'IBM Plex Mono', monospace;font-size:11px;opacity:.65;}
   footer .footer-logo{width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;opacity:.8;}
+
+  /* ---- Học phí & Điểm danh (gắn vào thẻ hồ sơ học sinh) ---- */
+  .hp-actions{margin-top:16px;text-align:center;}
+  .hp-btn{width:100%;}
+  .hp-panel{margin-top:14px;}
+  .hp-block{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:12px;animation:slideIn .3s ease;}
+  .hp-block h3{font-family:'Baloo 2',sans-serif;color:var(--navy);font-size:16px;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .hp-warn-banner{background:rgba(178,58,58,.09);border:1.5px solid var(--danger);color:var(--danger);border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:600;margin-bottom:12px;}
+  .hp-ok-banner{background:rgba(47,122,82,.09);border:1.5px solid var(--good);color:var(--good);border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:600;margin-bottom:12px;}
+  .hp-mon{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px;}
+  .hp-mon.warn{border-color:var(--danger);background:rgba(178,58,58,.04);}
+  .hp-mon-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+  .hp-mon-name{font-weight:700;color:var(--navy);}
+  .hp-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:600;}
+  .hp-tag.warn{background:var(--danger);color:#fff;}
+  .hp-tag.good{background:var(--good);color:#fff;}
+  .hp-mon-meta{font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.5;}
+  .hp-stat-row{display:flex;gap:10px;margin-bottom:12px;}
+  .hp-stat{flex:1;text-align:center;background:#EEF2FA;border-radius:10px;padding:10px 6px;}
+  .hp-stat .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;color:var(--navy);}
+  .hp-stat .n.vang{color:var(--danger);}
+  .hp-stat .n.co{color:var(--good);}
+  .hp-stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  .hp-buoi{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--line);}
+  .hp-buoi:last-child{border-bottom:none;}
+  .hp-buoi .tt-vang{color:var(--danger);font-weight:600;}
+  .hp-buoi .tt-co{color:var(--good);font-weight:600;}
+  .hp-loading{color:var(--ink-soft);font-size:13px;text-align:center;padding:12px;}
+  .hp-empty{color:var(--ink-soft);font-size:13px;text-align:center;padding:8px;}
+
+  /* ---- Học phí & Điểm danh: nhóm theo môn / theo tháng ---- */
+  .hp-legend{display:flex;gap:14px;font-size:11.5px;color:var(--ink-soft);margin:2px 0 14px;flex-wrap:wrap;}
+  .hp-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle;}
+  .hp-legend .dot.good{background:var(--good);}
+  .hp-legend .dot.bad{background:var(--danger);}
+  .hp-legend .dot.chip-good{background:rgba(47,122,82,.18);border:1.5px solid var(--good);}
+  .hp-legend .dot.chip-bad{background:rgba(178,58,58,.18);border:1.5px solid var(--danger);}
+
+  .hp-month-chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .hp-month-chip{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border-radius:999px;font-weight:600;white-space:nowrap;}
+  .hp-month-chip.paid{background:rgba(47,122,82,.1);color:var(--good);border:1.3px solid var(--good);}
+  .hp-month-chip.missing{background:rgba(178,58,58,.1);color:var(--danger);border:1.3px solid var(--danger);}
+  .hp-chip-label{font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;font-weight:600;}
+
+  .dd-subject{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--surface);}
+  .dd-subject-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dd-subject-name{font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--navy);font-size:15px;}
+  .dd-subject-stats{display:flex;gap:10px;font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .dd-subject-stats b.co{color:var(--good);}
+  .dd-subject-stats b.vang{color:var(--danger);}
+  .dd-month-block{border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-top:9px;}
+  .dd-month-head{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;color:var(--navy-2);font-family:'IBM Plex Mono',monospace;}
+  .dd-month-head .cnt{font-weight:600;color:var(--ink-soft);}
+  .dd-day-dot-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .dd-day-dot{
+    min-width:34px;height:30px;padding:0 6px;border-radius:8px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-size:10.5px;font-weight:700;line-height:1.15;cursor:default;
+  }
+  .dd-day-dot .d{font-size:11.5px;}
+  .dd-day-dot.present{background:rgba(47,122,82,.12);color:var(--good);border:1.3px solid var(--good);}
+  .dd-day-dot.absent{background:rgba(178,58,58,.12);color:var(--danger);border:1.3px solid var(--danger);}
+  details.dd-subject-toggle > summary{cursor:pointer;list-style:none;}
+  details.dd-subject-toggle > summary::-webkit-details-marker{display:none;}
 </style>
 </head>
 <body>
@@ -329,6 +393,17 @@
         <button id="viewListBtn" class="active">Danh sách học sinh</button>
         <button id="viewStatsBtn">Thống kê</button>
         <button id="viewIssuesBtn">⚠ Kiểm tra dữ liệu lỗi</button>
+        <button id="viewMenuPingBtn">🔗 Kiểm tra kết nối sheet Menu</button>
+      </div>
+
+      <div id="menuPingSection" class="stats-wrap" style="display:none;">
+        <p style="color:var(--ink-soft);font-size:13px;margin:0 0 14px;">
+          Kiểm tra xem Apps Script có mở được sheet "Menu" (sheet tổng của AppSheet,
+          chứa tab THU và DIEM_DANH) hay không — dùng để chẩn đoán nhanh khi trang
+          học sinh báo lỗi "không tải được học phí/điểm danh".
+        </p>
+        <button class="btn accent" id="checkMenuPingBtn">Kiểm tra ngay</button>
+        <div id="menuPingResult" style="margin-top:14px;"></div>
       </div>
 
       <div id="statsSection" class="stats-wrap" style="display:none;">
@@ -416,7 +491,7 @@ let API_URL = "https://script.google.com/macros/s/AKfycbw8-Wo04znEfAhRDGQL6xOW_u
 // đẩy bản index.html mới lên GitHub Pages, để khi học sinh/đồng nghiệp
 // báo lỗi, bạn chỉ cần hỏi họ thấy số phiên bản gì ở chân trang là biết
 // ngay thiết bị đó đang chạy bản cũ (cache) hay bản mới nhất.
-const APP_VERSION = "2026.07.02-02";
+const APP_VERSION = "2026.07.04-01";
 let students = [];
 let session = null; // {username, password}
 
@@ -601,6 +676,12 @@ function renderCard(s){
         <div class="field"><span class="k">Lớp</span><span class="v">${escapeHtml(s.lop)}</span></div>
         <div class="field"><span class="k">Trợ giảng</span><span class="v">${escapeHtml(s.troGiang)}</span></div>
         ${zaloField}
+        <div class="hp-actions">
+          <button class="btn secondary hp-btn" onclick="xemHocPhiDiemDanh('${escAttr(s.maHS)}','${escAttr(s.hoTen)}')">
+            Xem học phí &amp; điểm danh
+          </button>
+        </div>
+        <div class="hp-panel" id="hpPanel-${escAttr(s.maHS)}"></div>
       </div>
     </div>`;
 }
@@ -671,26 +752,68 @@ function showMsg(el, text, ok){
 const viewListBtn = document.getElementById('viewListBtn');
 const viewStatsBtn = document.getElementById('viewStatsBtn');
 const viewIssuesBtn = document.getElementById('viewIssuesBtn');
+const viewMenuPingBtn = document.getElementById('viewMenuPingBtn');
 const statsSection = document.getElementById('statsSection');
 const listSection = document.getElementById('listSection');
 const issuesSection = document.getElementById('issuesSection');
+const menuPingSection = document.getElementById('menuPingSection');
+
+function hideAllAdminSections(){
+  statsSection.style.display = 'none';
+  issuesSection.style.display = 'none';
+  listSection.style.display = 'none';
+  menuPingSection.style.display = 'none';
+  [viewListBtn, viewStatsBtn, viewIssuesBtn, viewMenuPingBtn].forEach(b => b.classList.remove('active'));
+}
 
 viewListBtn.onclick = () => {
-  viewListBtn.classList.add('active'); viewStatsBtn.classList.remove('active'); viewIssuesBtn.classList.remove('active');
-  statsSection.style.display = 'none'; issuesSection.style.display = 'none'; listSection.style.display = '';
+  hideAllAdminSections();
+  viewListBtn.classList.add('active'); listSection.style.display = '';
 };
 viewStatsBtn.onclick = () => {
-  viewStatsBtn.classList.add('active'); viewListBtn.classList.remove('active'); viewIssuesBtn.classList.remove('active');
-  listSection.style.display = 'none'; issuesSection.style.display = 'none'; statsSection.style.display = '';
+  hideAllAdminSections();
+  viewStatsBtn.classList.add('active'); statsSection.style.display = '';
   loadStats();
 };
 viewIssuesBtn.onclick = () => {
-  viewIssuesBtn.classList.add('active'); viewListBtn.classList.remove('active'); viewStatsBtn.classList.remove('active');
-  listSection.style.display = 'none'; statsSection.style.display = 'none'; issuesSection.style.display = '';
+  hideAllAdminSections();
+  viewIssuesBtn.classList.add('active'); issuesSection.style.display = '';
   loadDataIssues();
+};
+viewMenuPingBtn.onclick = () => {
+  hideAllAdminSections();
+  viewMenuPingBtn.classList.add('active'); menuPingSection.style.display = '';
 };
 
 document.getElementById('refreshIssuesBtn').onclick = () => loadDataIssues();
+
+// ---------- Admin: kiểm tra kết nối sheet "Menu" (THU/DIEM_DANH) ----------
+document.getElementById('checkMenuPingBtn').onclick = async () => {
+  const result = document.getElementById('menuPingResult');
+  result.innerHTML = `<div class="hp-loading">Đang kiểm tra kết nối…</div>`;
+  try{
+    const data = await apiGet('hocPhiPing');
+    if(!data || !data.ok){
+      result.innerHTML = `<div class="status-msg bad">${escapeHtml((data&&data.error)||'Không kiểm tra được.')}</div>`;
+      return;
+    }
+    const tabsList = (data.tatCaTab||[]).map(t =>
+      `<tr><td>${escapeHtml(t.ten)}</td><td class="num-cell">${t.gid}</td><td class="num-cell">${t.soDong}</td></tr>`
+    ).join('');
+    result.innerHTML = `
+      <div class="status-msg ${data.ketNoiThuOk && data.ketNoiDiemDanhOk ? 'good':'bad'}">
+        Sheet Menu: <strong>${escapeHtml(data.tenSheetMenu||'?')}</strong><br>
+        Tab THU: ${data.ketNoiThuOk ? '✓ OK — "'+escapeHtml(data.tenTabThu)+'" ('+data.soDongThu+' dòng)' : '✗ Không kết nối được'}<br>
+        Tab DIEM_DANH: ${data.ketNoiDiemDanhOk ? '✓ OK — "'+escapeHtml(data.tenTabDiemDanh)+'" ('+data.soDongDiemDanh+' dòng)' : '✗ Không kết nối được'}
+      </div>
+      <div class="stat-table-box" style="margin-top:12px;">
+        <h4>Tất cả các tab trong sheet Menu</h4>
+        <table><thead><tr><th>Tên tab</th><th>GID</th><th>Số dòng</th></tr></thead><tbody>${tabsList}</tbody></table>
+      </div>`;
+  }catch(err){
+    result.innerHTML = `<div class="status-msg bad">Lỗi kết nối. Chi tiết: ${escapeHtml(errDetail(err))}</div>`;
+  }
+};
 
 async function loadDataIssues(){
   const body = document.getElementById('issuesBody');
@@ -978,6 +1101,143 @@ function splitCSVLine(line){
   }
   out.push(cur);
   return out;
+}
+
+// ---------- Học phí & Điểm danh ----------
+// Dùng CHUNG một Apps Script deployment với API_URL ở trên (cùng 1 project
+// Code.gs xử lý mọi action: list/search/admin lẫn hocPhi/diemDanh), nên
+// không khai báo URL riêng — tránh trường hợp sau này đổi deployment mà
+// quên cập nhật 1 trong 2 chỗ, dẫn tới gọi nhầm bản cũ.
+const HP_BACKEND_URL = API_URL;
+
+async function hpApiGet(action, params){
+  const url = new URL(HP_BACKEND_URL);
+  url.searchParams.set('action', action);
+  for(const k in (params||{})) url.searchParams.set(k, params[k]);
+  url.searchParams.set('_', Date.now()); // chống cache như apiGet() ở trên
+  const res = await fetch(url.toString());
+  if(!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+async function xemHocPhiDiemDanh(maHS, hoTen){
+  const panel = document.getElementById('hpPanel-' + maHS);
+  if(!panel) return;
+  if(panel.dataset.loaded === '1'){        // bấm lần 2 để ẩn/hiện
+    panel.style.display = panel.style.display === 'none' ? '' : 'none';
+    return;
+  }
+  panel.innerHTML = `<div class="hp-loading">Đang tải học phí & điểm danh…</div>`;
+  try{
+    const [hp, dd] = await Promise.all([
+      hpApiGet('hocPhi',   {maHS, hoTen}),
+      hpApiGet('diemDanh', {maHS, hoTen})
+    ]);
+    panel.innerHTML = renderHocPhi(hp) + renderDiemDanh(dd);
+    panel.dataset.loaded = '1';
+  }catch(err){
+    panel.innerHTML = `<div class="error-state">Không tải được học phí/điểm danh.<br><span class="error-detail">Chi tiết: ${escapeHtml(errDetail(err))}</span></div>`;
+  }
+}
+
+function renderHocPhi(hp){
+  if(!hp || !hp.ok) return `<div class="hp-block"><h3>💳 Học phí</h3><div class="hp-empty">${escapeHtml((hp&&hp.error)||'Không có dữ liệu học phí.')}</div></div>`;
+  const mons = hp.monHoc || [];
+  const banner = hp.canhBao
+    ? `<div class="hp-warn-banner">⚠ Có môn CHƯA đóng học phí đến tháng hiện tại (${escapeHtml(hp.thangHienTai)}).</div>`
+    : `<div class="hp-ok-banner">✓ Đã đóng học phí đầy đủ đến tháng hiện tại (${escapeHtml(hp.thangHienTai)}).</div>`;
+  const legend = mons.length === 0 ? '' : `
+    <div class="hp-legend">
+      <span><span class="dot chip-good"></span>Tháng đã đóng</span>
+      <span><span class="dot chip-bad"></span>Tháng còn thiếu</span>
+    </div>`;
+  const rows = mons.length === 0
+    ? `<div class="hp-empty">Chưa có khoản thu học phí nào.</div>`
+    : mons.map(m => {
+        const paidChips = (m.daDongCacThang||[]).length
+          ? (m.daDongCacThang||[]).map(t => `<span class="hp-month-chip paid">${escapeHtml(t)}</span>`).join('')
+          : `<span class="hp-empty" style="padding:2px 0;">Chưa có tháng nào ghi nhận</span>`;
+        const missing = m.cacThangConThieu || [];
+        const missingBlock = !m.coDuLieuNgayDong
+          ? `<div class="hp-chip-label" style="color:var(--danger);">Chưa có dữ liệu ngày đóng để xác định tháng còn thiếu.</div>`
+          : (missing.length === 0
+              ? `<div class="hp-chip-label" style="color:var(--good);">Không thiếu tháng nào — đã đóng đủ đến hiện tại.</div>`
+              : `<div class="hp-chip-label">Còn thiếu (${missing.length} tháng):</div>
+                 <div class="hp-month-chip-row">${missing.map(t => `<span class="hp-month-chip missing">${escapeHtml(t)}</span>`).join('')}</div>`);
+        return `<div class="hp-mon ${m.canhBao?'warn':''}">
+          <div class="hp-mon-head">
+            <span class="hp-mon-name">${escapeHtml(m.mon)}</span>
+            <span class="hp-tag ${m.canhBao?'warn':'good'}">${m.canhBao?'Chưa đủ':'Đã đóng'}</span>
+          </div>
+          <div class="hp-mon-meta">
+            Đóng đến ngày: <strong>${escapeHtml(m.daDongDenNgay||'—')}</strong>
+            ${m.conLai ? ' · Còn lại: ' + Number(m.conLai).toLocaleString('vi-VN') + 'đ' : ''}
+          </div>
+          <div class="hp-chip-label">Đã đóng (${(m.daDongCacThang||[]).length} tháng):</div>
+          <div class="hp-month-chip-row">${paidChips}</div>
+          ${missingBlock}
+        </div>`;
+      }).join('');
+  return `<div class="hp-block"><h3>💳 Tình hình học phí theo môn</h3>${banner}${legend}${rows}</div>`;
+}
+
+function renderDiemDanh(dd){
+  if(!dd || !dd.ok) return `<div class="hp-block"><h3>📅 Điểm danh</h3><div class="hp-empty">${escapeHtml((dd&&dd.error)||'Không có dữ liệu điểm danh.')}</div></div>`;
+  const theoMon = dd.theoMon || [];
+
+  const legend = theoMon.length === 0 ? '' : `
+    <div class="hp-legend">
+      <span><span class="dot good"></span>Ngày đi học</span>
+      <span><span class="dot bad"></span>Ngày vắng học</span>
+    </div>`;
+
+  const subjectBlocks = theoMon.length === 0
+    ? `<div class="hp-empty">Chưa có dữ liệu buổi học.</div>`
+    : theoMon.map((m, mi) => {
+        const monthBlocks = (m.theoThang || []).map(t => {
+          const dayDots = (t.buoi || []).slice().reverse().map(b => {
+            // Chỉ hiện số ngày (bỏ phần tháng/năm đã có ở tiêu đề tháng) để gọn.
+            const dayNum = (String(b.ngay||'').split('/')[0]) || '?';
+            const cls = b.vang ? 'absent' : 'present';
+            const title = `${escapeHtml(b.ngay||'')}${b.gio?' '+escapeHtml(b.gio):''} — ${escapeHtml(b.trangThai || (b.vang?'Vắng':'Có mặt'))}${b.ghiChu?' ('+escapeHtml(b.ghiChu)+')':''}`;
+            return `<div class="dd-day-dot ${cls}" title="${title}"><span class="d">${escapeHtml(dayNum)}</span></div>`;
+          }).join('');
+          return `<div class="dd-month-block">
+            <div class="dd-month-head">
+              <span>Tháng ${escapeHtml(t.thang)}</span>
+              <span class="cnt">${t.tongBuoi} buổi · <b style="color:var(--good);">${t.soCoMat} có mặt</b> · <b style="color:var(--danger);">${t.soVang} vắng</b></span>
+            </div>
+            <div class="dd-day-dot-row">${dayDots}</div>
+          </div>`;
+        }).join('');
+        // Mở sẵn môn đầu tiên để học sinh thấy ngay dữ liệu, các môn sau thu gọn.
+        return `<details class="dd-subject-toggle" ${mi===0?'open':''}>
+          <summary>
+            <div class="dd-subject">
+              <div class="dd-subject-head">
+                <span class="dd-subject-name">▸ ${escapeHtml(m.mon)}</span>
+                <span class="dd-subject-stats">
+                  <span>${m.tongBuoi} buổi</span>
+                  <b class="co">${m.soCoMat} có mặt</b>
+                  <b class="vang">${m.soVang} vắng</b>
+                </span>
+              </div>
+            </div>
+          </summary>
+          ${monthBlocks}
+        </details>`;
+      }).join('');
+
+  return `<div class="hp-block">
+    <h3>📅 Đi học & Vắng học theo môn</h3>
+    <div class="hp-stat-row">
+      <div class="hp-stat"><div class="n">${dd.tongBuoi}</div><div class="l">Tổng buổi</div></div>
+      <div class="hp-stat"><div class="n co">${dd.soCoMat}</div><div class="l">Có mặt</div></div>
+      <div class="hp-stat"><div class="n vang">${dd.soVang}</div><div class="l">Vắng</div></div>
+    </div>
+    ${legend}
+    ${subjectBlocks}
+  </div>`;
 }
 </script>
 </body>
